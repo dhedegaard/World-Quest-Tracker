@@ -1114,7 +1114,8 @@ function DF:CreateCoolTip()
 					menuButton.leftText:SetFont(fontFace, fontSize, fontFlags)
 				end
 			else
-				menuButton.leftText:SetFont(gameCooltip.defaultFont, leftTextSettings[6] or gameCooltip.OptionsTable.TextSize or 10, leftTextSettings[8] or gameCooltip.OptionsTable.TextShadow)
+				--gameCooltip.defaultFont is a SharedMedia font name (e.g. "Friz Quadrata TT"), not a font file path; resolve it before SetFont
+				menuButton.leftText:SetFont(SharedMedia:Fetch("font", gameCooltip.defaultFont), leftTextSettings[6] or gameCooltip.OptionsTable.TextSize or 10, leftTextSettings[8] or gameCooltip.OptionsTable.TextShadow)
 			end
 
 			--text shadow color
@@ -1225,7 +1226,8 @@ function DF:CreateCoolTip()
 					menuButton.rightText:SetFont(fontFace, fontSize, fontFlags)
 				end
 			else
-				menuButton.rightText:SetFont(gameCooltip.defaultFont, rightTextSettings[6] or gameCooltip.OptionsTable.TextSize or 10, rightTextSettings[8] or gameCooltip.OptionsTable.TextShadow)
+				--gameCooltip.defaultFont is a SharedMedia font name (e.g. "Friz Quadrata TT"), not a font file path; resolve it before SetFont
+				menuButton.rightText:SetFont(SharedMedia:Fetch("font", gameCooltip.defaultFont), rightTextSettings[6] or gameCooltip.OptionsTable.TextSize or 10, rightTextSettings[8] or gameCooltip.OptionsTable.TextShadow)
 			end
 
 			--text shadow color
@@ -3325,7 +3327,8 @@ function DF:CreateCoolTip()
 		end
 
 		local face, size, flags = fontstring:GetFont()
-		face = fontFace or DF:GetBestFontForLanguage()
+		--GetBestFontForLanguage returns a SharedMedia font name, not a font file path; resolve it before SetFont
+		face = fontFace or SharedMedia:Fetch("font", DF:GetBestFontForLanguage())
 		size = fontSize or 13
 		flags = fontFlag or nil
 		fontstring:SetFont(face, size, flags)
